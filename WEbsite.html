@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Clone</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .card:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 0;
+            end: 0;
+            margin: 10px;
+            padding: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 3px;
+        }
+
+        #sideMenu {
+            transition: margin-left 0.3s ease;
+        }
+
+        //* Sub Navbar Style */
+        .sub-navbar {
+            background-color: #f8f8f8;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            overflow-x: auto;
+        }
+
+        .sub-navbar .nav-link {
+            color: #555;
+            border-radius: 20px;
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #f8f8f8;
+            font-size: 14px;
+        }
+
+        .sub-navbar .nav-link:hover {
+            background-color: #e6e6e6;
+            color: #000;
+        }
+
+        .sub-navbar .nav-link.active {
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* Remove extra margins from the main content */
+        #mainContent {
+            margin-top: 140px;
+            margin-left: 250px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top">
+        <div class="container-fluid">
+            <button id="menuToggle" class="btn btn-light me-2">
+                <i class="bi bi-list"></i>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube Logo" height="30">
+            </a>
+            <form class="d-flex mx-auto" style="width: 50%;">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-light" type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
+                <button class="btn btn-light ms-2" type="button">
+                    <i class="bi bi-mic"></i>
+                </button>
+            </form>
+            <div class="d-flex align-items-center">
+                <button class="btn btn-light">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
+                <button class="btn btn-light ms-2">
+                    <i class="bi bi-bell"></i>
+                </button>
+                <button class="btn btn-light ms-2">
+                    <img src="https://via.placeholder.com/30" class="rounded-circle" alt="User Icon">
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="sub-navbar">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">All</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Music</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">CSS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">T-Series</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Computer Science</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Indian pop music</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pakistani dramas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">News</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Reverberation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Gaming</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Brides</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Sitcoms</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Sketch comedy</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Comedy</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Bollywood</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Side Menu -->
+    <div id="sideMenu" class="position-fixed top-0 start-0" style="width: 250px; height: 100%; overflow-y: auto; margin-top: 140px;">
+        <!-- Side menu content -->
+        <ul class="list-unstyled mt-4">
+            <ul class="list-unstyled mt-4">
+                <li class="py-2 ps-3"><i class="bi bi-house-door"></i> Home</li>
+                <li class="py-2 ps-3"><i class="bi bi-lightning"></i> Shorts</li>
+                <li class="py-2 ps-3"><i class="bi bi-collection"></i> Subscriptions</li>
+                <hr>
+                <li class="py-2 ps-3"><strong>You</strong></li>
+                <li class="py-2 ps-3"><i class="bi bi-clock-history"></i> History</li>
+                <li class="py-2 ps-3"><i class="bi bi-play-btn"></i> Playlist</li>
+                <li class="py-2 ps-3"><i class="bi bi-bookmark"></i> Watch Later</li>
+                <li class="py-2 ps-3"><i class="bi bi-hand-thumbs-up"></i> Liked Videos</li>
+                <hr>
+                <li class="py-2 ps-3"><strong>Explore</strong></li>
+                <li class="py-2 ps-3"><i class="bi bi-arrow-up-right-circle"></i> Trending</li>
+                <li class="py-2 ps-3"><i class="bi bi-music-note"></i> Music</li>
+                <li class="py-2 ps-3"><i class="bi bi-controller"></i> Gaming</li>
+                <li class="py-2 ps-3"><i class="bi bi-journal"></i> News</li>
+                <li class="py-2 ps-3"><i class="bi bi-trophy"></i> Sport</li>
+                <hr>
+                <li class="py-2 ps-3"><i class="bi bi-youtube text-danger"></i> YouTube Premium</li>
+                <li class="py-2 ps-3"><i class="bi bi-music-player text-danger"></i> YouTube Music</li>
+                <li class="py-2 ps-3"><i class="bi bi-youtube text-danger"></i> YouTube Kids</li>
+                <hr>
+                <li class="py-2 ps-3"><i class="bi bi-gear"></i> Settings</li>
+                <li class="py-2 ps-3"><i class="bi bi-flag"></i> Report History</li>
+                <li class="py-2 ps-3"><i class="bi bi-question-circle"></i> Help</li>
+                <li class="py-2 ps-3"><i class="bi bi-chat"></i> Send Feedback</li>
+                <hr>
+                <div class="px-3">
+                    About Press Copyright Contact us Creator Advertise Developers<br>
+                    Terms Privacy Policy & Safety How YouTube works Test new features<br>
+                    &copy; 2024 Google LLC
+                </div>
+        </ul>
+    </div>
+    <!-- Main Content -->
+    <div id="mainContent" class="container-fluid" style="margin-top: 70px; margin-left: 250px;">
+        <h5 class="mb-3">Recommended</h5>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            <!-- YouTube Video Cards -->
+            <!-- Repeat the following block 4 times for the 4 cards -->
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="image1.jpg" class="card-img-top" alt="Video Thumbnail">
+                        <div class="video-duration">
+                            <small>10:30</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">"How to Build a Simple Website in Just 10 Minutes - Step-by-Step Guide for Beginners"</h6>
+                        <p class="card-text text-muted mb-1">TechTutorials</p>
+                        <p class="card-text text-muted small">1M views • 1 day ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="image2.jpg" class="card-img-top" alt="Video Thumbnail">
+                        <div class="video-duration">
+                            <small>10:30</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">"Exploring the Future of Artificial Intelligence: Trends You Should Know"</h6>
+                        <p class="card-text text-muted mb-1">AI Insights</p>
+                        <p class="card-text text-muted small">800K views • 3 days ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="image4.jpg" class="card-img-top" alt="Video Thumbnail">
+                        <div class="video-duration">
+                            <small>10:30</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">"Top 10 Coding Tips for Beginners to Level Up Your Programming Skills"</h6>
+                        <p class="card-text text-muted mb-1">DevMaster</p>
+                        <p class="card-text text-muted small">2M views • 5 days ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="image3.jpg" class="card-img-top" alt="Video Thumbnail">
+                        <div class="video-duration">
+                            <small>10:30</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">"Mastering Python: A Complete Guide for Beginners and Intermediate Programmers"</h6>
+                        <p class="card-text text-muted mb-1">Code Academy</p>
+                        <p class="card-text text-muted small">1.5M views • 1 week ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="image5.jpg" class="card-img-top" alt="Video Thumbnail">
+                        <div class="video-duration">
+                            <small>10:30</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">"The Best JavaScript Frameworks in 2024: Which One Should You Choose for Your Projects?"</h6>
+                        <p class="card-text text-muted mb-1">WebDevPro</p>
+                        <p class="card-text text-muted small">1.2M views • 10 days ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="image6.jpg" class="card-img-top" alt="Video Thumbnail">
+                        <div class="video-duration">
+                            <small>10:30</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">"Learn HTML & CSS in 30 Minutes: A Quick and Easy Introduction for Beginners"</h6>
+                        <p class="card-text text-muted mb-1">Design Hub</p>
+                        <p class="card-text text-muted small">1.3M views • 2 days ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="image7.jpg" class="card-img-top" alt="Video Thumbnail">
+                        <div class="video-duration">
+                            <small>10:30</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">"My First 3D Animation with Blender: A Beginner’s Guide to Creating Stunning Animations"</h6>
+                        <p class="card-text text-muted mb-1">Creative Studios</p>
+                        <p class="card-text text-muted small">950K views • 4 days ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="image8.jpg" class="card-img-top" alt="Video Thumbnail">
+                        <div class="video-duration">
+                            <small>10:30</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">"How to Create a Mobile App with React Native: A Complete Guide for New Developers"</h6>
+                        <p class="card-text text-muted mb-1">AppDevPro</p>
+                        <p class="card-text text-muted small">2.3M views • 7 days ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="image9.jpg" class="card-img-top" alt="Video Thumbnail">
+                        <div class="video-duration">
+                            <small>10:30</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">"What’s New in Web Development in 2024? Latest Technologies You Need to Learn"</h6>
+                        <p class="card-text text-muted mb-1">Tech World</p>
+                        <p class="card-text text-muted small">1.8M views • 6 days ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="image10..jpg" class="card-img-top" alt="Video Thumbnail">
+                        <div class="video-duration">
+                            <small>10:30</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">"Exploring the World of Machine Learning: A Beginner’s Guide to AI and Data Science"</h6>
+                        <p class="card-text text-muted mb-1">Data Science Lab</p>
+                        <p class="card-text text-muted small">1.1M views • 12 days ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="image11.jpg" class="card-img-top" alt="Video Thumbnail">
+                        <div class="video-duration">
+                            <small>10:30</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">"Building a Game with Unity: A Beginner’s Guide to Game Development"</h6>
+                        <p class="card-text text-muted mb-1">GameDevPro</p>
+                        <p class="card-text text-muted small">1.4M views • 3 days ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="image12.jpg" class="card-img-top" alt="Video Thumbnail">
+                        <div class="video-duration">
+                            <small>10:30</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">"The Ultimate Guide to Graphic Design Tools: Creating Stunning Designs with Ease"</h6>
+                        <p class="card-text text-muted mb-1">Design Academy</p>
+                        <p class="card-text text-muted small">900K views • 4 days ago</p>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="image13.jpg" class="card-img-top" alt="Video Thumbnail">
+                        <div class="video-duration">
+                            <small>10:30</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">"How to Start Your Own Tech YouTube Channel and Grow Your Audience Fast"</h6>
+                        <p class="card-text text-muted mb-1">Content Creators</p>
+                        <p class="card-text text-muted small">1.6M views • 9 days ago</p>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="image14.jpg" class="card-img-top" alt="Video Thumbnail">
+                        <div class="video-duration">
+                            <small>10:30</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">"What is Blockchain Technology and How Does It Work? A Beginner’s Introduction"</h6>
+                        <p class="card-text text-muted mb-1">Blockchain Insights</p>
+                        <p class="card-text text-muted small">1.2M views • 15 days ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="image15.jpg" class="card-img-top" alt="Video Thumbnail">
+                        <div class="video-duration">
+                            <small>10:30</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">"A Day in the Life of a Software Developer: What It’s Really Like to Work in Tech"</h6>
+                        <p class="card-text text-muted mb-1">DevLife</p>
+                        <p class="card-text text-muted small">1M views • 2 weeks ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="image16.jpg" class="card-img-top" alt="Video Thumbnail">
+                        <div class="video-duration">
+                            <small>10:30</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">"Top 10 Coding Tips for Beginners to Level Up Your Programming Skills"</h6>
+                        <p class="card-text text-muted mb-1">DevMaster</p>
+                        <p class="card-text text-muted small">2M views • 5 days ago</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more YouTube video cards here (Repeat similar blocks) -->
+        </div>
+        
+
+        <h5 class="mt-5 mb-3">Shorts</h5>
+        <div class="d-flex flex-wrap gap-3">
+            <!-- Shorts Video Cards -->
+            <!-- Repeat the following block 12 times -->
+            <div class="card" style="width: 150px;">
+                <img src="simage1.jpg" class="card-img-top" alt="Short Thumbnail">
+                <div class="card-body">
+                    <h6 class="card-title">"Understanding JavaScript Functions: A Quick Overview"</h6>
+                </div>
+            </div>
+            <div class="card" style="width: 150px;">
+                <img src="simage2.jpg" class="card-img-top" alt="Short Thumbnail">
+                <div class="card-body">
+                    <h6 class="card-title">"What is React and Why You Should Learn It in 2024?"</h6>
+                </div>
+            </div>
+            <div class="card" style="width: 150px;">
+                <img src="simage3.jpg" class="card-img-top" alt="Short Thumbnail">
+                <div class="card-body">
+                    <h6 class="card-title">"Introduction to Python: The Basics You Need to Know"</h6>
+                </div>
+            </div>
+            <div class="card" style="width: 150px;">
+                <img src="simage4.jpg" class="card-img-top" alt="Short Thumbnail">
+                <div class="card-body">
+                    <h6 class="card-title">"Building a Responsive Layout with Flexbox in CSS"</h6>
+                </div>
+            </div>
+            <div class="card" style="width: 150px;">
+                <img src="simage5.jpg" class="card-img-top" alt="Short Thumbnail">
+                <div class="card-body">
+                    <h6 class="card-title">"Mastering Algorithms: A Simple Guide to Sorting Algorithms"</h6>
+                </div>
+            </div>
+            <div class="card" style="width: 150px;">
+                <img src="simage6.jpg" class="card-img-top" alt="Short Thumbnail">
+                <div class="card-body">
+                    <h6 class="card-title">"The Basics of Database Design: What You Need to Know"</h6>
+                </div>
+            </div>
+            <div class="card" style="width: 150px;">
+                <img src="simage7.jpg" class="card-img-top" alt="Short Thumbnail">
+                <div class="card-body">
+                    <h6 class="card-title">"Top 5 JavaScript Libraries You Should Learn This Year"</h6>
+                </div>
+            </div>
+            <div class="card" style="width: 150px;">
+                <img src="simage8.jpg" class="card-img-top" alt="Short Thumbnail">
+                <div class="card-body">
+                    <h6 class="card-title">"The Importance of Responsive Web Design in 2024"</h6>
+                </div>
+            </div>
+            <div class="card" style="width: 150px;">
+                <img src="simage9.jpg" class="card-img-top" alt="Short Thumbnail">
+                <div class="card-body">
+                    <h6 class="card-title">"How to Optimize Your Website for Faster Load Times"</h6>
+                </div>
+            </div>
+        
+
+            <!-- Add more Shorts video cards here (Repeat similar blocks) -->
+        </div>
+    </div>
+
+    <!-- JavaScript for handling side menu toggle -->
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const sideMenu = document.getElementById('sideMenu');
+            const mainContent = document.getElementById('mainContent');
+            if (sideMenu.style.marginLeft === "0px") {
+                sideMenu.style.marginLeft = "-250px";
+                mainContent.style.marginLeft = "0";
+            } else {
+                sideMenu.style.marginLeft = "0";
+                mainContent.style.marginLeft = "250px";
+            }
+        });
+    </script>
+</body>
+</html>
